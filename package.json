@@ -1,0 +1,20 @@
+{
+  "name": "dreamteam",
+  "version": "1.0.0",
+  "description": "Create your NBA Dream Team",
+  "main": "server.js",
+  "scripts": {
+    "start": "node backend/server.js",
+    "server": "nodemon backend/server.js" 
+  },
+  "author": "James Berthoud",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "mongoose": "^8.0.3"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2"
+  }
+}
