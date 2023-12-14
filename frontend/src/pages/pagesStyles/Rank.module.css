@@ -1,0 +1,80 @@
+.leftPlayerAndRadioDiv{
+    display: flex;
+    flex-direction: column;
+    margin-right: 5%;
+    border: 5px solid black;
+    background-color: #f06a5d;
+    width: 30%;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 3%;
+    padding-top: 3%;
+    font-weight: 800;
+
+}
+
+.rightPlayerAndRadioDiv{
+    display: flex;
+    flex-direction: column;
+    margin-left: 5%;
+    border: 5px solid black;
+    background-color: #f06a5d;
+    width: 30%;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 3%;
+    padding-top: 3%;
+    font-weight: 800;
+
+}
+
+
+.buttonDiv{
+    margin-top: 2%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.button{
+    height: 60px;
+    width: 25%;
+    font-size: x-large;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f06a5d;
+    border: 5px solid black;
+}
+
+
+
+.players{
+    display: flex;
+    padding-top: 4%;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    /* border: 1px solid black; */
+}
+
+.img{
+    height: 250px;
+    /* border: 1px solid yellow; */
+}
+
+.leftPlayerDiv{
+    /* border: 1px solid red; */
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.rightPlayerDiv{
+    /* border: 1px solid green; */
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

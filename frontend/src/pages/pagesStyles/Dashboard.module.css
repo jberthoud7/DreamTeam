@@ -1,0 +1,20 @@
+.rankingDiv{
+    display:flex; 
+    flex-direction:row;
+    justify-content: center;
+    border: 1px solid red;
+}
+
+.rankingDiv > div{
+    width: 30%;
+}
+
+.myRankingsDiv{
+    margin-right: 10%;
+    border: 1px solid black;
+}
+
+.worldRankingsDiv{
+    margin-left: 10%;
+    border: 1px solid blue;
+}
