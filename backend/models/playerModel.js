@@ -1,3 +1,4 @@
+const { Double } = require('bson')
 const mongoose = require('mongoose')
 
 const playerSchema = mongoose.Schema({
@@ -14,7 +15,7 @@ const playerSchema = mongoose.Schema({
             type: String
         },
         eloRating:{
-            type: String
+            type: Number
         }
     },
     {

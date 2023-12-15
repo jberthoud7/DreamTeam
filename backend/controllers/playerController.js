@@ -25,8 +25,18 @@ const updatePlayerRating = asyncHandler(async (req, res) => {
     res.status(200).json(updatedPlayer)
 })
 
+const getWorldRankings = asyncHandler(async (req, res) => {
+    // const page = req.params.page
+
+    const rankings = await Player.find({}).sort({eloRating: "desc"}).limit(5)
+
+    console.log(rankings)
+
+    res.status(200).json(rankings)
+})
+
 
 
 module.exports = {
-    getPlayer, updatePlayerRating
+    getPlayer, updatePlayerRating, getWorldRankings
 }
