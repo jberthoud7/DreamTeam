@@ -2,16 +2,6 @@ const asyncHandler = require('express-async-handler')
 
 const Player = require('../models/playerModel')
 
-// const postTest = asyncHandler(async (req, res) => {
-//     if(!req.body.text){
-//         res.status(400).json({msg: 'Please add text field'})
-//     }
-
-//     const test = await Test.create({
-//         text: req.body.text,
-//     })
-//     res.status(200).json(test)
-// })
 
 const getPlayer = asyncHandler(async (req, res) => {
     // console.log("in getPlayer")
@@ -25,8 +15,18 @@ const getPlayer = asyncHandler(async (req, res) => {
     res.status(200).send({"player1" : player1, "player2" : player2})
 })
 
+const updatePlayerRating = asyncHandler(async (req, res) => {
+    // console.log("\nplayer: " + req.body.dreamTeamId + "   "  + "newRating: " + req.body.newRating)
+    const newRating = req.body.newRating
+    const id = req.body.dreamTeamId
+
+    const updatedPlayer = await Player.updateOne({dreamTeamId: id}, {$set: {eloRating : newRating}})
+    
+    res.status(200).json(updatedPlayer)
+})
+
 
 
 module.exports = {
-    getPlayer
+    getPlayer, updatePlayerRating
 }

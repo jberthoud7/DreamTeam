@@ -12,6 +12,9 @@ const playerSchema = mongoose.Schema({
         },
         position:{
             type: String
+        },
+        eloRating:{
+            type: String
         }
     },
     {

@@ -3,6 +3,7 @@ import Banner from '../components/Banner'
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import classes from '../pages/pagesStyles/Rank.module.css';
+import { updateScores } from '../utils/updateScores';
 
 
 
@@ -16,10 +17,15 @@ function Rank(){
     const [p2Ast, setP2Ast] = useState('');
     const [p1Reb, setP1Reb] = useState('');
     const [p2Reb, setP2Reb] = useState('');
-    
+    const [p1Rating, setP1Rating] = useState('');    
+    const [p2Rating, setP2Rating] = useState('');
+    const [p1DreamTeamId, setP1DreamTeamId] = useState('');
+    const [p2DreamTeamId, setP2DreamTeamId] = useState('');
+
+
     useEffect(() => {
         async function initialPageLoad(){
-            let apiIds = await getPlayerIds()
+            let apiIds = await getPlayerInfo()
             getPlayerStats(apiIds)
         }
 
@@ -32,6 +38,9 @@ function Rank(){
         const random1 = Math.ceil(Math.random() * numberOfPlayersInDb)
         let random2 = Math.ceil(Math.random() * numberOfPlayersInDb)
 
+        setP1DreamTeamId(random1)
+        setP2DreamTeamId(random2)
+
         //make sure we aren't comparing the same player to himself
         while (random2 === random1){
             random2 = Math.ceil(Math.random() * numberOfPlayersInDb)
@@ -40,8 +49,8 @@ function Rank(){
         return [random1, random2]
     }
 
-    async function getPlayerIds(){
-        // console.log("in getPlayerIds")
+    async function getPlayerInfo(){
+        // console.log("in getPlayerInfo")
         const randoms = getRandomNumbers()
 
         const res = await fetch("http://localhost:5000/dreamTeam/player1/" + randoms[0] + "/player2/" + randoms[1])
@@ -50,8 +59,14 @@ function Rank(){
         const apiId1 = await json.player1.apiId
         const apiId2 = await json.player2.apiId
 
+        const p1Rating = await json.player1.eloRating
+        const p2Rating = await json.player2.eloRating
+
         // console.log("apiId1: " + apiId1)
         // console.log("apiId2: " + apiId2) 
+
+        setP1Rating(p1Rating)
+        setP2Rating(p2Rating)
         
         return [apiId1, apiId2]
     }
@@ -88,22 +103,18 @@ function Rank(){
     }
 
     async function handleClick(e){
-        console.log("in handleClick")
+        // console.log("in handleClick")
         e.preventDefault()
 
         getSelectedRadioButton()
 
         if(selectedPlayer == "p1Radio"){
-            //TODO: calculate score update (p1 wins)
-
+            updateScores("p1", p1DreamTeamId, p1Rating, p2DreamTeamId, p2Rating)
             document.getElementById("p1Radio").checked = false
-
         }
         else if(selectedPlayer == "p2Radio"){
-            //TODO: calculate score update (p2 wins)
-
+            updateScores("p2", p1DreamTeamId, p1Rating, p2DreamTeamId, p2Rating)
             document.getElementById("p2Radio").checked = false
-
         }
         else{
             //TODO: alert user they must select one
@@ -112,9 +123,9 @@ function Rank(){
         }
 
 
-        let apiIds = await getPlayerIds()
+        //update screen to show new players
+        let apiIds = await getPlayerInfo()
         getPlayerStats(apiIds)
-
     }
 
 
