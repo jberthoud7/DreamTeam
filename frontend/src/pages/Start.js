@@ -6,9 +6,8 @@ function Start(){
         <div>
             <div className={classes.linkDiv}>
                 {/* TODO: Update to go to login page */}
-                <Link to='/dashboard' className={classes.link} >Login</Link>
-                {/* TODO: Update to go to register page */}
-                <Link to='/dashboard' className={classes.link} >Register</Link>
+                <Link to='/register' className={classes.link} >Login</Link>
+                <Link to='/register' className={classes.link} >Register</Link>
             </div>
         </div>
     )

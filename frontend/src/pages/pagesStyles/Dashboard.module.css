@@ -6,15 +6,22 @@
 }
 
 .rankingDiv > div{
-    width: 30%;
+    width: 50%;
 }
 
 .myRankingsDiv{
-    margin-right: 10%;
     border: 1px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 10%;
 }
 
 .worldRankingsDiv{
-    margin-left: 10%;
     border: 1px solid blue;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-right: 10%;
+
 }

@@ -4,8 +4,6 @@ const Player = require('../models/playerModel')
 
 
 const getPlayer = asyncHandler(async (req, res) => {
-    // console.log("in getPlayer")
-
     const dreamTeamId1 = req.params.dreamTeamId1
     const dreamTeamId2 = req.params.dreamTeamId2
     
@@ -16,7 +14,6 @@ const getPlayer = asyncHandler(async (req, res) => {
 })
 
 const updatePlayerRating = asyncHandler(async (req, res) => {
-    // console.log("\nplayer: " + req.body.dreamTeamId + "   "  + "newRating: " + req.body.newRating)
     const newRating = req.body.newRating
     const id = req.body.dreamTeamId
 
@@ -26,11 +23,7 @@ const updatePlayerRating = asyncHandler(async (req, res) => {
 })
 
 const getWorldRankings = asyncHandler(async (req, res) => {
-    // const page = req.params.page
-
     const rankings = await Player.find({}).sort({eloRating: "desc"}).limit(5)
-
-    console.log(rankings)
 
     res.status(200).json(rankings)
 })

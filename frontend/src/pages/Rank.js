@@ -50,7 +50,6 @@ function Rank(){
     }
 
     async function getPlayerInfo(){
-        // console.log("in getPlayerInfo")
         const randoms = getRandomNumbers()
 
         const res = await fetch("http://localhost:5000/dreamTeam/player1/" + randoms[0] + "/player2/" + randoms[1])
@@ -62,9 +61,6 @@ function Rank(){
         const p1Rating = await json.player1.eloRating
         const p2Rating = await json.player2.eloRating
 
-        // console.log("apiId1: " + apiId1)
-        // console.log("apiId2: " + apiId2) 
-
         setP1Rating(p1Rating)
         setP2Rating(p2Rating)
         
@@ -72,24 +68,27 @@ function Rank(){
     }
 
     async function getPlayerStats(apiIds){
-        // console.log("in getPlayerStats")
         let id1 = apiIds[0]
         let id2 = apiIds[1]
 
-        const res = await fetch("https://www.balldontlie.io/api/v1/season_averages?player_ids[]=" + id1 + "&player_ids[]=" + id2)
-        const json = await res.json()
+        try{
+            console.log('making call to backend')
+            const res = await fetch(`/dreamteam/getPlayerSeasonAvgs?player_ids[]=${id1}&player_ids[]=${id2}`)
+            const json = await res.json()
 
-        const p1Stats = json.data[0]
-        setP1Pts(p1Stats.pts)
-        setP1Ast(p1Stats.ast)
-        setP1Reb(p1Stats.reb)
-
-        const p2Stats = json.data[1]
-        setP2Pts(p2Stats.pts)
-        setP2Ast(p2Stats.ast)
-        setP2Reb(p2Stats.reb)
-
-        // console.log(p1Stats)
+            const p1Stats = json.data[0]
+            setP1Pts(p1Stats.pts)
+            setP1Ast(p1Stats.ast)
+            setP1Reb(p1Stats.reb)
+    
+            const p2Stats = json.data[1]
+            setP2Pts(p2Stats.pts)
+            setP2Ast(p2Stats.ast)
+            setP2Reb(p2Stats.reb)
+        }
+        catch(e){
+            console.log('e    ' + e)
+        }
     }
 
     function getSelectedRadioButton(){
@@ -97,13 +96,11 @@ function Rank(){
         for(let i = 0; i < radioButtons.length; i++){
             if(radioButtons[i].checked){
                 selectedPlayer = radioButtons[i].id
-                console.log(selectedPlayer)
             }
         }
     }
 
     async function handleClick(e){
-        // console.log("in handleClick")
         e.preventDefault()
 
         getSelectedRadioButton()
