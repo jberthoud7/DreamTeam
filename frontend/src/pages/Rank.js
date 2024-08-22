@@ -4,7 +4,7 @@ import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import classes from '../pages/pagesStyles/Rank.module.css';
 import { updateScores } from '../utils/updateScores';
-
+import { LoadingModal } from '../components/LoadingModal'
 
 
 function Rank(){
@@ -21,6 +21,7 @@ function Rank(){
     const [p2Rating, setP2Rating] = useState('');
     const [p1DreamTeamId, setP1DreamTeamId] = useState('');
     const [p2DreamTeamId, setP2DreamTeamId] = useState('');
+    const [isLoading , setIsLoading] = useState(false);
 
 
     useEffect(() => {
@@ -33,6 +34,10 @@ function Rank(){
     }, [])
 
     let selectedPlayer;
+
+    const toggleIsLoading = () => {
+        setIsLoading(!isLoading)
+    }
 
     function getRandomNumbers(){
         const random1 = Math.ceil(Math.random() * numberOfPlayersInDb)
@@ -72,6 +77,7 @@ function Rank(){
         let id2 = apiIds[1]
 
         try{
+            setIsLoading(true)
             console.log('making call to backend')
             const res = await fetch(`/dreamteam/getPlayerSeasonAvgs?player_ids[]=${id1}&player_ids[]=${id2}`)
             const json = await res.json()
@@ -85,6 +91,8 @@ function Rank(){
             setP2Pts(p2Stats.pts)
             setP2Ast(p2Stats.ast)
             setP2Reb(p2Stats.reb)
+
+            setIsLoading(false)
         }
         catch(e){
             console.log('e    ' + e)
@@ -128,8 +136,12 @@ function Rank(){
 
 
     return(
-        <div>
+        <>
             <Banner></Banner>
+
+            { isLoading ? (
+                <LoadingModal />
+            ) :                     
             <div className={classes.body}>
                 <div className={classes.players}>
                     
@@ -175,8 +187,9 @@ function Rank(){
                     </Button>{' '}
                 </div>
 
-            </div>           
-        </div>
+            </div> 
+            }
+        </>
     )
 }
 
