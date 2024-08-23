@@ -10,8 +10,10 @@ router.get('/worldRankings', getWorldRankings)
 
 
 //User Controller
-const { getUser } = require('../controllers/userController')
+const { getUser, loginUser, registerUser } = require('../controllers/userController')
 router.get('/getUser/:username', getUser)
+router.post('/login', loginUser)
+router.post('/register', registerUser)
 
 
 //Proxy

@@ -1,10 +1,17 @@
 import classes from './componentsStyles/LoginForm.module.css'
-import { useRef } from 'react';
+import React, { useRef } from 'react';
 
-function LoginForm(props){
+const LoginForm = React.forwardRef((props, ref) => {
 
-    const usernameRef = useRef();
-    const passwordRef = useRef();
+    const usernameRef = useRef()
+    const passwordRef = useRef()
+    const formRef = useRef(null)
+
+    React.useImperativeHandle(ref, () => ({
+        clearLoginForm() {
+            formRef.current.reset()
+        }
+    }))
 
     async function handleSubmit(event) {
         event.preventDefault();
@@ -17,17 +24,17 @@ function LoginForm(props){
             password: enteredPassword,
         };
         
-        document.getElementById("username").value = "";
-        document.getElementById("password").value = "";
+        document.getElementById("username").value = ""
+        document.getElementById("password").value = ""
 
-        props.loginFormCallback(userData);
+        props.loginFormCallback(userData)
     }
 
     return(
         <div className={classes.centerContainer}>
             <div className={classes.container}>
                 <h2 className={classes.header}>{props.header}</h2>
-                <form className={classes.form} onSubmit={handleSubmit} id="loginForm">
+                <form ref={formRef} className={classes.form} onSubmit={handleSubmit} id="loginForm">
                     <div>
                         <input type="text" required id="username" placeholder="Username" ref={usernameRef}/>
                     </div>
@@ -39,7 +46,7 @@ function LoginForm(props){
             </div>
         </div>
     )
-}
+})
 
 
 export default LoginForm

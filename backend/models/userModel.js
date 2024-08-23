@@ -8,7 +8,7 @@ const userSchema = mongoose.Schema({
             type: String
         },
         rankings: {
-            type: String
+            type: Array
         }
     },
     {
